@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { CompanyModel } from "./company.model";
+import { UserCompanyModel } from "./user-company";
 
 @ObjectType()
 export class UserModel {
@@ -18,8 +19,8 @@ export class UserModel {
     @Field(type => String)
     phone: string;
 
-    @Field(type => CompanyModel)
-    companies: CompanyModel[];
+    @Field(type => UserCompanyModel)
+    userCompanies: UserCompanyModel[];
 
     @Field(type => String)
     createdAt: string;

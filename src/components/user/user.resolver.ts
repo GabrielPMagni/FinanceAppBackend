@@ -14,12 +14,13 @@ export class UserResolver {
 
     @Query(returns => UserModel)
     @UseGuards(JwtAuthGuard)
-    async user(@Args() { id }: UserRequestArgs) {
+    async user(@Args() { id }: UserRequestArgs): Promise<UserResponseDto> {
         return plainToInstance(UserResponseDto, await this.userService.getUser(id));
     }
 
     @Mutation(returns => UserModel)
-    async createUser(@Args() args: UserCreateArgs) {
+    @UseGuards(JwtAuthGuard)
+    async createUser(@Args() args: UserCreateArgs): Promise<UserResponseDto> {
         return plainToInstance(UserResponseDto, await this.userService.createUser(args));
     }
 }

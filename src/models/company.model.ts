@@ -3,6 +3,7 @@ import { UserModel } from "./user.model";
 import { TransactionModel } from "./transaction.model";
 import { ClientModel } from "./client.model";
 import { RoleModel } from "./role.model";
+import { UserCompanyModel } from "./user-company";
 
 @ObjectType()
 export class CompanyModel {
@@ -18,11 +19,8 @@ export class CompanyModel {
     @Field(type => String)
     address: string;
 
-    @Field(type => Int)
-    userId: number;
-
-    @Field(type => UserModel)
-    user: UserModel;
+    @Field(type => UserCompanyModel)
+    userCompanies: UserCompanyModel[];
 
     @Field(type => [TransactionModel])
     transactions: TransactionModel[];

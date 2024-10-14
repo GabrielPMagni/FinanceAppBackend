@@ -64,11 +64,20 @@ type CompanyModel {
   companyName: String!
   cnpj: String!
   address: String!
-  userId: Int!
-  user: UserModel!
+  userCompanies: UserCompanyModel!
   transactions: [TransactionModel!]!
   clients: [ClientModel!]!
   roles: [RoleModel!]!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type UserCompanyModel {
+  userId: Int!
+  user: UserModel!
+  companyId: Int!
+  company: CompanyModel!
   createdAt: String!
   updatedAt: String!
   deletedAt: String
@@ -80,7 +89,7 @@ type UserModel {
   email: String!
   password: String!
   phone: String!
-  companies: CompanyModel!
+  userCompanies: UserCompanyModel!
   createdAt: String!
   updatedAt: String!
   deletedAt: String

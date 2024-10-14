@@ -4,6 +4,7 @@ import { compare } from 'src/helpers/encryption/compare';
 import { PrismaService } from '../prisma/prisma.service';
 import { constants } from '../config/constants';
 import { FinanceException } from 'src/helpers/exception/exception';
+import { UserModel } from 'src/models/user.model';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,7 @@ export class AuthService {
                 email,
                 deletedAt: null,
             }
-        }); 
+        });
 
         if (user && await compare(password, user.password)) {
             const { password, ...result } = user;
@@ -27,8 +28,12 @@ export class AuthService {
         return null;
     }
 
-    async login(user: any) {
-        const payload = { email: user.email, sub: user.id, refreshTimeout: this.getRefreshTimeout() };
+    async login(user: UserModel) {
+        const payload = { 
+            email: user.email, 
+            sub: user.id, 
+            refreshTimeout: this.getRefreshTimeout(),
+        };
         return {
             access_token: this.jwtService.sign(payload),
         };

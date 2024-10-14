@@ -8,24 +8,37 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String    @unique
-  password  String
-  phone     String
-  companies Company[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id              Int           @id @default(autoincrement())
+  name            String
+  email           String        @unique
+  password        String
+  phone           String
+  userEnterprises UserCompany[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
 
   @@map("users")
 }
 
+model UserCompany {
+  userId    Int
+  companyId Int
+  user      User      @relation(fields: [userId], references: [id])
+  company   Company   @relation(fields: [companyId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@id([userId, companyId])
+  @@map("user_companies")
+}
+
 model Permission {
-  id         Int      @id @default(autoincrement())
-  permission String
-  createdAt  DateTime @default(now())
-  roles      Role[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  roles     Role[]
 
   @@map("permissions")
 }
@@ -48,8 +61,7 @@ model Company {
   companyName            String
   cnpj                   String                @unique
   address                String
-  userId                 Int
-  user                   User                  @relation(fields: [userId], references: [id])
+  userEnterprises        UserCompany[]
   transactionsCategories TransactionCategory[]
   transactions           Transaction[]
   clients                Client[]

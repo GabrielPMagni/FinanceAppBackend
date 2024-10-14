@@ -15,6 +15,15 @@ async function main() {
         },
         update: {}
     });
+
+    await prisma.permission.upsert({
+        where: { id: 1 },
+        create: {
+            id: 1,
+            name: 'admin',
+        },
+        update: {}
+    });
 }
 
 main()
