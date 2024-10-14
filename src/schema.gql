@@ -1,0 +1,98 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TransactionCategoryModel {
+  id: Int!
+  categoryName: String!
+  companyId: Int!
+  company: CompanyModel!
+  transactions: [TransactionModel!]!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type TransactionModel {
+  id: Int!
+  transactionType: String!
+  description: String!
+  amount: Float!
+  transactionDate: String!
+  transactionCategoryId: Int!
+  transactionCategory: TransactionCategoryModel!
+  companyId: Int!
+  company: CompanyModel!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type ClientModel {
+  id: Int!
+  clientName: String!
+  clientEmail: String!
+  clientPhone: String!
+  clientAddress: String!
+  companyId: Int!
+  company: CompanyModel!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type PermissionModel {
+  id: Int!
+  permission: String!
+  roles: [RoleModel!]!
+  createdAt: String!
+}
+
+type RoleModel {
+  id: Int!
+  roleName: String!
+  permissions: [PermissionModel!]!
+  companyId: Int!
+  company: CompanyModel!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type CompanyModel {
+  id: Int!
+  companyName: String!
+  cnpj: String!
+  address: String!
+  userId: Int!
+  user: UserModel!
+  transactions: [TransactionModel!]!
+  clients: [ClientModel!]!
+  roles: [RoleModel!]!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type UserModel {
+  id: Int!
+  name: String!
+  email: String!
+  password: String!
+  phone: String!
+  companies: CompanyModel!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type Query {
+  healthCheck: String!
+  user(id: Float!): UserModel!
+}
+
+type Mutation {
+  createUser(name: String!, email: String!, password: String!, phone: String): UserModel!
+  login(email: String!, password: String!): String!
+  refreshToken(token: String!): String!
+}
